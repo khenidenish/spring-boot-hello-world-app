@@ -10,7 +10,5 @@ RUN mvn dependency:go-offline
 
 COPY src ./src
 
-RUN mvn clean install
-
-COPY /app/target/spring-boot-2-hello-world-1.0.2-SNAPSHOT.jar /app/my-app.jar
+RUN mvn clean install && cp ./target/spring-boot-2-hello-world-1.0.2-SNAPSHOT.jar /app/my-app.jar
 CMD java -jar my-app.jar
