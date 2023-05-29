@@ -8,10 +8,14 @@ pipeline {
     }
 
     stages {
+        stage('Docker build'){
+          docker.build('demo')
+        }
         stage('Build') {
             steps {
                 // Build the Docker image
                 script {
+                    sh 'sleep 5000'
                     docker.withRegistry('https://549942532493.dkr.ecr.ap-southeast-1.amazonaws.com', 'ecr:ap-southeast-1:aws-credentials') {
                         def dockerImage = docker.build("${ECR_REPOSITORY}:${DOCKER_IMAGE_TAG}", "-f Dockerfile .")
                         dockerImage.push()
