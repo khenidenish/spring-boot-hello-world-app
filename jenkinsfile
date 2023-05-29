@@ -12,7 +12,7 @@ pipeline {
             steps {
                 // Build the Docker image
                 script {
-                    sh 'service docker start'
+                    sh 'rc-service docker start'
                     sh 'docker --version'
                     docker.withRegistry('https://549942532493.dkr.ecr.ap-southeast-1.amazonaws.com/', 'awscred') {
                         def dockerImage = docker.build("${ECR_REPOSITORY}:${DOCKER_IMAGE_TAG}", "-f Dockerfile .")
