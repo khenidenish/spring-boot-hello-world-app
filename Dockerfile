@@ -12,4 +12,5 @@ COPY src ./src
 
 RUN mvn clean install
 
-CMD java -jar target/my-app-0.0.1-SNAPSHOT.jar
+COPY target/my-app-0.0.1-SNAPSHOT.jar /app/my-app.jar
+CMD java -jar my-app.jar

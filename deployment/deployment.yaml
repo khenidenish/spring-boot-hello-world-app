@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app
+        image: 549942532493.dkr.ecr.ap-southeast-1.amazonaws.com/spring-boot-demo:11
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: ecr-credentials
+          mountPath: /app/.docker
+          readOnly: true
+      volumes:
+      - name: ecr-credentials
+        secret:
+          secretName: ecr-credentials
