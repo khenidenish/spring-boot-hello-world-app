@@ -12,7 +12,7 @@ pipeline {
             steps {
                 // Build the Docker image
                 script {
-                    docker.withRegistry('https://549942532493.dkr.ecr.ap-southeast-1.amazonaws.com', 'ecr:ap-southeast-1:aws-credentials') {
+                    docker.withRegistry('https://549942532493.dkr.ecr.ap-southeast-1.amazonaws.com', 'ecr:ap-southeast-1:aws-credentials', 'https') {
                         def dockerImage = docker.build("${ECR_REPOSITORY}:${DOCKER_IMAGE_TAG}", "-f Dockerfile .")
                         dockerImage.push()
                     }
