@@ -1,8 +1,13 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:11-jdk-slim
+
 WORKDIR /app
+
 COPY pom.xml .
+
+RUN mvn dependency:go-offline
+
 COPY src ./src
-RUN mvn clean package
-RUN java -jar target/docker-message-server-1.0.0.jar
-COPY target/docker-message-server-1.0.0.jar message-server-1.0.0.jar
-ENTRYPOINT ["java","-jar","/message-server-1.0.0.jar"]
+
+RUN mvn clean install
+
+CMD java -jar target/my-app-0.0.1-SNAPSHOT.jar
