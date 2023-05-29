@@ -8,9 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('Docker build'){
-          docker.build('demo')
-        }
         stage('Build') {
             steps {
                 // Build the Docker image
