@@ -1,33 +1,5 @@
 pipeline {
-    agent {
-        kubernetes {
-            label 'my-jenkins-agent'
-            defaultContainer 'jnlp'
-            yaml """
-            apiVersion: v1
-            kind: Pod
-            spec:
-              containers:
-              - name: jnlp
-                image: jenkins/jnlp-agent-docker
-                tty: true
-                volumeMounts:
-                - name: dockersock
-                  mountPath: /var/run/docker.sock
-              - name: docker
-                image: docker:dind
-                securityContext:
-                  privileged: true
-                volumeMounts:
-                - name: dockersock
-                  mountPath: /var/run/docker.sock
-              volumes:
-              - name: dockersock
-                hostPath:
-                  path: /var/run/docker.sock
-            """
-        }
-    }
+    agent none
 
     environment {
         AWS_REGION = 'ap-southeast-1'
