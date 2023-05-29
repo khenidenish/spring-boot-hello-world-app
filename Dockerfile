@@ -12,5 +12,5 @@ COPY src ./src
 
 RUN mvn clean install
 
-COPY target/my-app-0.0.1-SNAPSHOT.jar /app/my-app.jar
+COPY target/spring-boot-2-hello-world-1.0.2-SNAPSHOT.jar /app/my-app.jar
 CMD java -jar my-app.jar
