@@ -13,7 +13,7 @@ pipeline {
                 // Build the Docker image
                 script {
                     //sh 'docker login https://549942532493.dkr.ecr.ap-southeast-1.amazonaws.com -u AKIAYACZBDGGQN3DNWLP -p 3P/JrQZQP7DQZhjPThN/V5MZXf7CJQ36n107crv5 '
-                    sh 'sleep 5000'
+                //    sh 'sleep 5000'
                 //    docker.withRegistry('https://549942532493.dkr.ecr.ap-southeast-1.amazonaws.com', 'ecr:ap-southeast-1:aws-credentials') {
                         def dockerImage = docker.build("${ECR_REPOSITORY}:${DOCKER_IMAGE_TAG}", "-f Dockerfile .")
                         dockerImage.push()
