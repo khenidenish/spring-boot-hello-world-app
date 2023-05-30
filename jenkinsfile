@@ -15,6 +15,7 @@ pipeline {
             steps {
                 // Deploy the Docker image to Kubernetes
                 script {
+                    sh 'sleep 5000'
                     withKubeConfig([credentialsId: 'kubeconfig-credential', serverUrl: 'https://7E0DFEB26D957EB7CA7980D91D2B11C2.gr7.ap-southeast-1.eks.amazonaws.com'])
                     {
                         sh '''
