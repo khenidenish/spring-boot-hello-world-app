@@ -14,14 +14,19 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: 549942532493.dkr.ecr.ap-southeast-1.amazonaws.com/spring-boot-demo:11
+        image: 549942532493.dkr.ecr.ap-southeast-1.amazonaws.com/spring-boot-demo:16
         ports:
         - containerPort: 8080
         volumeMounts:
         - name: ecr-credentials
           mountPath: /app/.docker
           readOnly: true
+        - name: persistent-storage
+          mountPath: /app/target
       volumes:
       - name: ecr-credentials
         secret:
           secretName: ecr-credentials
+      - name: persistent-storage
+        persistentVolumeClaim:
+          claimName: efs-claim
