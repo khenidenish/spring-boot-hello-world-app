@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         AWS_REGION = 'ap-southeast-1'
-        ECR_REPOSITORY = 'spring-boot-demo'
+        ECR_REPOSITORY = '549942532493.dkr.ecr.ap-southeast-1.amazonaws.com/spring-boot-demo'
         DOCKER_IMAGE_TAG = "${env.BUILD_NUMBER}"
         K8S_NAMESPACE = 'dev'
         K8S_DEPLOYMENT_NAME = 'my-app'
