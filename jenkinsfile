@@ -5,6 +5,8 @@ pipeline {
         AWS_REGION = 'ap-southeast-1'
         ECR_REPOSITORY = 'spring-boot-demo'
         DOCKER_IMAGE_TAG = "${env.BUILD_NUMBER}"
+        K8S_NAMESPACE = 'dev'
+        K8S_DEPLOYMENT_NAME = 'my-app'
     }
 
     stages {
@@ -22,5 +24,18 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+            steps {
+                // Deploy the Docker image to Kubernetes
+                script {
+                    withCredentials([kubeconfigFile(credentialsId: 'kubeconfig-credential', variable: 'KUBECONFIG')]) {
+                        sh '''
+                            kubectl set image deployment/${K8S_DEPLOYMENT_NAME} ${K8S_DEPLOYMENT_NAME}=${ECR_REPOSITORY}:${DOCKER_IMAGE_TAG} -n ${K8S_NAMESPACE} --kubeconfig=$KUBECONFIG
+                        '''
+                    }
+                }
+            }
+        }
     }
+    
 }
