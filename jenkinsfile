@@ -1,5 +1,32 @@
 pipeline {
-    agent any
+    agent {
+      kubernetes {
+          label 'my-jenkins-agent'
+          defaultContainer 'jnlp'
+      yaml """
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          labels:
+            app: my-jenkins-agent
+        spec:
+          containers:
+          - name: jnlp
+            image: denishsrijan/jenkinsdocker:latest
+            args: ['$(JENKINS_SECRET)', '$(JENKINS_NAME)']
+            env:
+            - name: DOCKER_HOST
+              value: tcp://localhost:2375
+            - name: DOCKER_TLS_CERTDIR
+              value: ''
+          - name: dind
+            image: docker:19-dind
+            command: ['dockerd-entrypoint.sh']
+            args: []
+            securityContext:
+              privileged: true
+          """
+    }
 
     environment {
         AWS_REGION = 'ap-southeast-1'
@@ -24,6 +51,7 @@ pipeline {
                 }
             }
         }
+
         stage('Deploy') {
             steps {
                 // Deploy the Docker image to Kubernete
