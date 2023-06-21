@@ -12,7 +12,7 @@ pipeline {
         spec:
           containers:
           - name: jnlp
-            image: denishsrijan/jenkinsdocker:latest
+            image: jenkins/jnlp-agent-docker
             args: ['$(JENKINS_SECRET)', '$(JENKINS_NAME)']
             env:
             - name: DOCKER_HOST
@@ -20,7 +20,7 @@ pipeline {
             - name: DOCKER_TLS_CERTDIR
               value: ''
           - name: dind
-            image: docker:19-dind
+            image: docker:20-dind
             command: ['dockerd-entrypoint.sh']
             args: []
             env:
@@ -64,7 +64,7 @@ pipeline {
                     withKubeConfig([credentialsId: 'kubeconfig-credential', serverUrl: 'https://7E0DFEB26D957EB7CA7980D91D2B11C2.gr7.ap-southeast-1.eks.amazonaws.com'])
                     {
                         sh '''
-                            kubectl set image deployment/${K8S_DEPLOYMENT_NAME} ${K8S_DEPLOYMENT_NAME}=${ECR_REPOSITORY}:${DOCKER_IMAGE_TAG} -n ${K8S_NAMESPACE} --kubeconfig=$KUBECONFIG
+                 //           kubectl set image deployment/${K8S_DEPLOYMENT_NAME} ${K8S_DEPLOYMENT_NAME}=${ECR_REPOSITORY}:${DOCKER_IMAGE_TAG} -n ${K8S_NAMESPACE} --kubeconfig=$KUBECONFIG
                         '''
                     }
                 }
