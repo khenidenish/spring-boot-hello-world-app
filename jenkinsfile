@@ -27,6 +27,7 @@ pipeline {
               privileged: true
           '''
     }
+    }
 
     environment {
         AWS_REGION = 'ap-southeast-1'
