@@ -13,7 +13,7 @@ pipeline {
           containers:
           - name: jnlp
             image: denishsrijan/jenkinsdocker:latest
-            args: ['$$(JENKINS_SECRET)', '$$(JENKINS_NAME)']
+            args: ['${JENKINS_SECRET}', '${JENKINS_NAME}']
             env:
             - name: DOCKER_HOST
               value: tcp://localhost:2375
