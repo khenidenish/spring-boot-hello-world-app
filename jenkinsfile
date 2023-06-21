@@ -18,7 +18,7 @@ pipeline {
             - name: DOCKER_HOST
               value: tcp://localhost:2375
             - name: DOCKER_TLS_CERTDIR
-              value: ''
+              value: ""
           - name: dind
             image: docker:19-dind
             command: ['dockerd-entrypoint.sh']
