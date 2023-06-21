@@ -20,7 +20,7 @@ pipeline {
             - name: DOCKER_TLS_CERTDIR
               value: ''
           - name: dind
-            image: docker:20-dind
+            image: docker:19-dind
             command: ['dockerd-entrypoint.sh']
             args: []
             env:
